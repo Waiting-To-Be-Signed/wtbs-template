@@ -10,7 +10,6 @@ addLetterStyle(class SampleImage extends LetterStyle {
   static name = 'SampleImage';
 
   setup() {
-    console.log(this.letter, this.RND.buffer[0]);
     this._inverted = this.probability(0.5);
     this._gridSize = this.pick([30, 40, 50, 60]);
     this._grid = [];

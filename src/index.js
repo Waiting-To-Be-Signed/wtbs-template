@@ -1,22 +1,21 @@
 /* global fxhash, fxpreview */
 
 import p5 from 'p5';
-import { RND, pick } from '@thi.ng/random-fxhash';
+import { RND } from '@thi.ng/random-fxhash';
 import debounce from 'lodash.debounce';
-
-import { styleClasses } from './letterstyle';
 
 import './styles/sample-pixels';
 import './styles/sample-image';
 
-const pickedStyle = {};
-window.$fxhashFeatures = {};
-
 const WTBS = ['W', 'T', 'B', 'S'];
 
+import { pickStylesR as pickStyles } from './pickStyles';
+const pickedStyle = pickStyles(WTBS);
+
+window.$fxhashFeatures = {};
+
 for (let letter of WTBS) {
-  const s = pick(styleClasses);
-  pickedStyle[letter] = s;
+  const s = pickedStyle[letter];
   window.$fxhashFeatures[letter] = `${s.name} by ${s.author}`;
 }
 
@@ -34,7 +33,7 @@ new p5((p5) => {
 
   const setupSize = () => {
     s = Math.min(p5.windowWidth, p5.windowHeight);
-    if (s % 2 !== 0) { s -= 1; }
+    if (s % 2 !== 0) { s += 1; }
   }
 
   const restoreDefaults = () => {
